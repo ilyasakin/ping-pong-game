@@ -1,6 +1,6 @@
 import GameObject from './game-object';
 
-class Vector2D extends GameObject {
+abstract class Vector2D extends GameObject {
   public x: number;
   public y: number;
 
