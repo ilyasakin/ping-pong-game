@@ -31,17 +31,32 @@ class Game {
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
   }
 
+  /**
+   * The game loop.
+   * Runs every frame.
+   *
+   * Game logic is executed here.
+   */
   private loop(): void {
     this.instances.forEach((instance) => instance.update());
     requestAnimationFrame(() => this.loop());
   }
 
+  /**
+   * Initializes the game.
+   * Instances and managers are created here.
+   *
+   * Runs once.
+   */
   private init(): void {
     this.instances.push(
         new Ball(this)
     );
   }
 
+  /**
+   * Entry point of the game.
+   */
   public start(): void {
     this.init();
     this.loop();
