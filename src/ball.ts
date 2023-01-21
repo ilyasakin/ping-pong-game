@@ -5,8 +5,8 @@ class Ball extends Vector2D {
     private game: Game;
 
     constructor(game: Game) {
-        const centerX = game.canvas.width / 2;
-        const centerY = game.canvas.height / 2;
+        const centerX: number = game.canvas.width / 2;
+        const centerY: number = game.canvas.height / 2;
         super(centerX, centerY);
         this.game = game;
     }
