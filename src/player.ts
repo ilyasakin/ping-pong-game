@@ -15,16 +15,27 @@ class Player extends Vector2D {
 
   private keydownHandler(e: KeyboardEvent): void {
     if (e.key === this.controls.up) {
-      this.y -= 20;
+      this.controls.isUpPressed = true;
     }
 
     if (e.key === this.controls.down) {
-      this.y += 20;
+      this.controls.isDownPressed = true;
+    }
+  }
+
+  private keyupHandler(e: KeyboardEvent): void {
+    if (e.key === this.controls.up) {
+      this.controls.isUpPressed = false;
+    }
+
+    if (e.key === this.controls.down) {
+      this.controls.isDownPressed = false;
     }
   }
 
   private init(): void {
     document.addEventListener('keydown', this.keydownHandler.bind(this));
+    document.addEventListener('keyup', this.keyupHandler.bind(this));
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
@@ -36,6 +47,14 @@ class Player extends Vector2D {
   }
 
   public update(): void {
+    if (this.controls.isUpPressed) {
+      this.y -= 5;
+    }
+
+    if (this.controls.isDownPressed) {
+      this.y += 5;
+    }
+
     this.draw(this.game.ctx);
   }
 }
