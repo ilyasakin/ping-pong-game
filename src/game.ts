@@ -1,10 +1,10 @@
 import CollisionManager from './collision-manager';
 import GameObject from './game-object';
 import Manager from './manager';
-import Ball from "./ball";
-import Player from "./player";
-import Position from "./position";
-import PlayerControls from "./player-controls";
+import Ball from './ball';
+import Player from './player';
+import Position from './position';
+import PlayerControls from './player-controls';
 
 /**
  *  Main game class.
@@ -54,9 +54,9 @@ class Game {
    */
   private init(): void {
     this.instances.push(
-        new Ball(this),
-        new Player(this, new PlayerControls('w', 's'), new Position(20,20)),
-        new Player(this, new PlayerControls('ArrowUp', 'ArrowDown'), new Position(760, 20))
+      new Ball(this),
+      new Player(this, new PlayerControls('w', 's'), new Position(20, 20)),
+      new Player(this, new PlayerControls('ArrowUp', 'ArrowDown'), new Position(760, 20)),
     );
   }
 

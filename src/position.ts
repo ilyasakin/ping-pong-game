@@ -1,5 +1,5 @@
 class Position {
-     /**
+  /**
    * The x coordinate of the vector.
    */
   public x: number;
