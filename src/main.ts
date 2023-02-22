@@ -1,11 +1,9 @@
 import Game from './game';
 import './style.css';
 
-const canvas = document.getElementById(
-  'game-canvas'
-) as HTMLCanvasElement | null;
+const canvas = document.getElementById('game-canvas');
 
-if (!canvas) {
+if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
   throw new Error('No canvas element found');
 }
 
