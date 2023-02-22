@@ -41,6 +41,7 @@ class Game {
    * Game logic is executed here.
    */
   private loop(): void {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.instances.forEach((instance) => instance.update());
     requestAnimationFrame(() => this.loop());
   }
