@@ -1,22 +1,13 @@
+import Dimensions2D from './dimensions2d';
 import GameObject from './game-object';
+import Position from './position';
 
 /**
  * A class representing a 2D vector.
  */
 abstract class Vector2D extends GameObject {
-  /**
-   * The x coordinate of the vector.
-   */
-  public x: number;
-  /**
-   * The y coordinate of the vector.
-   */
-  public y: number;
-
-  constructor(x: number, y: number) {
+  constructor(public position: Position, public dimensions: Dimensions2D) {
     super();
-    this.x = x;
-    this.y = y;
   }
 
   public abstract draw(ctx: CanvasRenderingContext2D): void;

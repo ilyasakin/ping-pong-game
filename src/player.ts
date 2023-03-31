@@ -2,14 +2,16 @@ import Vector2D from './vector2d';
 import Position from './position';
 import Game from './game';
 import PlayerControls from './player-controls';
+import Dimensions2D from './dimensions2d';
 
 class Player extends Vector2D {
   constructor(
     private readonly game: Game,
     public readonly controls: PlayerControls,
     position: Position,
+    dimensions: Dimensions2D,
   ) {
-    super(position.x, position.y);
+    super(position, dimensions);
     this.init();
   }
 
@@ -40,7 +42,7 @@ class Player extends Vector2D {
 
   public draw(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath();
-    ctx.rect(this.x, this.y, 20, 100);
+    ctx.rect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height);
     ctx.fillStyle = '#FFFFFF';
     ctx.fill();
     ctx.closePath();
@@ -48,11 +50,11 @@ class Player extends Vector2D {
 
   public update(): void {
     if (this.controls.isUpPressed) {
-      this.y -= 5;
+      this.position.y -= 5;
     }
 
     if (this.controls.isDownPressed) {
-      this.y += 5;
+      this.position.y += 5;
     }
 
     this.draw(this.game.ctx);
