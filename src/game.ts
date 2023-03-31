@@ -55,19 +55,22 @@ class Game {
    * Runs once.
    */
   private init(): void {
+    const playerDimensions: Dimensions2D = new Dimensions2D(20, 100);
+    const playerCenter: number = this.canvas.height / 2 - playerDimensions.height / 2;
+
     this.instances.push(
       new Ball(this),
       new Player(
         this,
         new PlayerControls('w', 's'),
-        new Position(20, 20),
-        new Dimensions2D(20, 100),
+        new Position(20, playerCenter),
+        playerDimensions,
       ),
       new Player(
         this,
         new PlayerControls('ArrowUp', 'ArrowDown'),
-        new Position(760, 20),
-        new Dimensions2D(20, 100),
+        new Position(760, playerCenter),
+        playerDimensions,
       ),
     );
   }
