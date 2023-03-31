@@ -32,7 +32,13 @@ class Game {
   public managers: Manager[] = [new CollisionManager(this)];
 
   constructor(public readonly canvas: HTMLCanvasElement) {
-    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+    const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
+
+    if (!ctx) {
+      throw new Error('Could not get 2D context from canvas');
+    }
+
+    this.ctx = ctx;
   }
 
   /**
@@ -43,8 +49,8 @@ class Game {
    */
   private loop(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.instances.forEach((instance) => instance.update());
-    this.managers.forEach((manager) => manager.run());
+    this.instances.forEach((instance: GameObject) => instance.update());
+    this.managers.forEach((manager: Manager) => manager.run());
     requestAnimationFrame(() => this.loop());
   }
 
