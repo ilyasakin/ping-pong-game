@@ -5,6 +5,7 @@ import Ball from './ball';
 import Player from './player';
 import Position from './position';
 import PlayerControls from './player-controls';
+import Dimensions2D from './dimensions2d';
 
 /**
  *  Main game class.
@@ -43,6 +44,7 @@ class Game {
   private loop(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.instances.forEach((instance) => instance.update());
+    this.managers.forEach((manager) => manager.run());
     requestAnimationFrame(() => this.loop());
   }
 
@@ -55,8 +57,18 @@ class Game {
   private init(): void {
     this.instances.push(
       new Ball(this),
-      new Player(this, new PlayerControls('w', 's'), new Position(20, 20)),
-      new Player(this, new PlayerControls('ArrowUp', 'ArrowDown'), new Position(760, 20)),
+      new Player(
+        this,
+        new PlayerControls('w', 's'),
+        new Position(20, 20),
+        new Dimensions2D(20, 100),
+      ),
+      new Player(
+        this,
+        new PlayerControls('ArrowUp', 'ArrowDown'),
+        new Position(760, 20),
+        new Dimensions2D(20, 100),
+      ),
     );
   }
 
