@@ -10,18 +10,17 @@ class CollisionManager extends Manager {
 
   init() {}
 
-  protected getIsPlayerCollidingWithWall(player: Player): boolean {
-    return (
-      player.position.y < 0 ||
-      player.position.y + player.dimensions.height > this.game.canvas.height
-    );
+  protected getIsPlayerCollidingWithUpWall(player: Player): boolean {
+    return player.position.y <= 0;
+  }
+
+  protected getIsPlayerCollidingWithDownWall(player: Player): boolean {
+    return player.position.y + player.dimensions.height >= this.game.canvas.height;
   }
 
   protected managePlayer(player: Player): void {
-    if (this.getIsPlayerCollidingWithWall(player)) {
-      player.controls.isUpPressed = false;
-      player.controls.isDownPressed = false;
-    }
+    player.isCollidedWallUp = this.getIsPlayerCollidingWithUpWall(player);
+    player.isCollidedWallDown = this.getIsPlayerCollidingWithDownWall(player);
   }
 
   run() {

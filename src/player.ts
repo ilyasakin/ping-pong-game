@@ -5,6 +5,9 @@ import PlayerControls from './player-controls';
 import Dimensions2D from './dimensions2d';
 
 class Player extends Vector2D {
+  public isCollidedWallUp: boolean = false;
+  public isCollidedWallDown: boolean = false;
+
   constructor(
     private readonly game: Game,
     public readonly controls: PlayerControls,
@@ -49,11 +52,11 @@ class Player extends Vector2D {
   }
 
   public update(): void {
-    if (this.controls.isUpPressed) {
+    if (!this.isCollidedWallUp && this.controls.isUpPressed) {
       this.position.y -= 5;
     }
 
-    if (this.controls.isDownPressed) {
+    if (!this.isCollidedWallDown && this.controls.isDownPressed) {
       this.position.y += 5;
     }
 
