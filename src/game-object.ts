@@ -1,4 +1,6 @@
 abstract class GameObject {
+  public init(): void {}
+
   /**
    * The update method is called every frame.
    * It is supposed to update the game object's state.

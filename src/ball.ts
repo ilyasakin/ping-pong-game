@@ -2,15 +2,22 @@ import Vector2D from './vector2d';
 import Game from './game';
 import Dimensions2D from './dimensions2d';
 import Position from './position';
+import Direction from './direction';
 
 class Ball extends Vector2D {
   private game: Game;
+  public direction: Direction = new Direction(0);
 
   constructor(game: Game) {
     const centerX: number = game.canvas.width / 2;
     const centerY: number = game.canvas.height / 2;
     super(new Position(centerX, centerY), new Dimensions2D(20, 20));
     this.game = game;
+  }
+
+  public init(): void {
+    const randomDirection: number = Math.floor(Math.random() * 360);
+    this.direction.value = randomDirection;
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
@@ -22,6 +29,8 @@ class Ball extends Vector2D {
   }
 
   public update(): void {
+    this.position.x += Math.cos((this.direction.value * Math.PI) / 180) * 5;
+    this.position.y += Math.sin((this.direction.value * Math.PI) / 180) * 5;
     this.draw(this.game.ctx);
   }
 }

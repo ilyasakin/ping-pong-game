@@ -15,7 +15,6 @@ class Player extends Vector2D {
     dimensions: Dimensions2D,
   ) {
     super(position, dimensions);
-    this.init();
   }
 
   private keydownHandler(e: KeyboardEvent): void {
@@ -38,7 +37,7 @@ class Player extends Vector2D {
     }
   }
 
-  private init(): void {
+  public init(): void {
     document.addEventListener('keydown', this.keydownHandler.bind(this));
     document.addEventListener('keyup', this.keyupHandler.bind(this));
   }

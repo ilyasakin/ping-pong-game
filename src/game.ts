@@ -79,6 +79,9 @@ class Game {
         playerDimensions,
       ),
     );
+
+    this.instances.forEach((instance: GameObject) => instance.init());
+    this.managers.forEach((manager: Manager) => manager.init());
   }
 
   /**
