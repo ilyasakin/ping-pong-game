@@ -29,13 +29,35 @@ class CollisionManager extends Manager {
       return false;
     }
 
-    // Not working properly
-    return (
-      player.position.x <= this.ball.position.x + this.ball.dimensions.width &&
-      player.position.x + player.dimensions.width >= this.ball.position.x &&
-      player.position.y <= this.ball.position.y + this.ball.dimensions.height &&
-      player.position.y + player.dimensions.height >= this.ball.position.y
-    );
+    // There is two cases:
+    // - The player is on the left side of the screen
+    // - The player is on the right side of the screen
+    //
+    // Consider ball's dimensions as a circle
+
+    const isOnLeftSide = player.position.x <= this.game.canvas.width / 2;
+    const isOnRightSide = player.position.x > this.game.canvas.width / 2;
+
+    if (isOnLeftSide) {
+      return (
+        player.position.x + player.dimensions.width + 1 >=
+          this.ball.position.x - this.ball.dimensions.width &&
+        player.position.y + player.dimensions.height + 1 >=
+          this.ball.position.y - this.ball.dimensions.height &&
+        player.position.y <= this.ball.position.y + this.ball.dimensions.height
+      );
+    }
+
+    if (isOnRightSide) {
+      return (
+        player.position.x - 1 <= this.ball.position.x + this.ball.dimensions.width &&
+        player.position.y + player.dimensions.height + 1 >=
+          this.ball.position.y - this.ball.dimensions.height &&
+        player.position.y <= this.ball.position.y + this.ball.dimensions.height
+      );
+    }
+
+    throw new Error('Unexpected code path');
   }
 
   protected managePlayer(player: Player): void {
@@ -50,7 +72,13 @@ class CollisionManager extends Manager {
     }
 
     if (this.getIsPlayerCollidingWithBall(player)) {
-      this.ball.direction.value = 180 - this.ball.direction.value;
+      let newDirection: number = 180 - this.ball.direction.value;
+
+      if (newDirection < 0) {
+        newDirection = 360 + newDirection;
+      }
+
+      this.ball.direction.value = newDirection;
     }
   }
 
