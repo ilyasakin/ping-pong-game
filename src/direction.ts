@@ -23,7 +23,9 @@ class Direction {
       this._value = 0;
     }
 
-    console.log(`Direction set to ${value}`);
+    if (import.meta.env.DEV) {
+      console.log(`Direction set to ${value}`);
+    }
 
     this._value = value;
   }
