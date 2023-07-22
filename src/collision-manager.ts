@@ -1,19 +1,19 @@
 import Ball from './ball';
 import Dimensions2D from './dimensions2d';
-import Game from './game';
 import Manager from './manager';
 import Player from './player';
 import Position from './position';
+import Scene from './scene';
 
 class CollisionManager extends Manager {
   private ball: Ball | null = null;
 
-  constructor(public readonly game: Game) {
+  constructor(public readonly scene: Scene) {
     super();
   }
 
   init() {
-    this.ball = this.game.instances.find((instance) => instance instanceof Ball) as Ball;
+    this.ball = this.scene.instances.find((instance) => instance instanceof Ball) as Ball;
   }
 
   private getIsObjectCollidingWithUpWall(dimensions: Dimensions2D, position: Position): boolean {
@@ -21,7 +21,7 @@ class CollisionManager extends Manager {
   }
 
   private getIsObjectCollidingWithDownWall(dimensions: Dimensions2D, position: Position): boolean {
-    return position.y + dimensions.height >= this.game.canvas.height;
+    return position.y + dimensions.height >= this.scene.game.canvas.height;
   }
 
   private getIsPlayerCollidingWithBall(player: Player): boolean {
@@ -35,8 +35,8 @@ class CollisionManager extends Manager {
     //
     // Consider ball's dimensions as a circle
 
-    const isOnLeftSide = player.position.x <= this.game.canvas.width / 2;
-    const isOnRightSide = player.position.x > this.game.canvas.width / 2;
+    const isOnLeftSide = player.position.x <= this.scene.game.canvas.width / 2;
+    const isOnRightSide = player.position.x > this.scene.game.canvas.width / 2;
 
     if (isOnLeftSide) {
       return (
@@ -93,7 +93,7 @@ class CollisionManager extends Manager {
   }
 
   run() {
-    this.game.instances.forEach((instance) => {
+    this.scene.instances.forEach((instance) => {
       if (instance instanceof Player) {
         this.managePlayer(instance);
       }

@@ -1,11 +1,5 @@
-import CollisionManager from './collision-manager';
-import GameObject from './game-object';
-import Manager from './manager';
-import Ball from './ball';
-import Player from './player';
-import Position from './position';
-import PlayerControls from './player-controls';
-import Dimensions2D from './dimensions2d';
+import Scene from './scene';
+import GameScene from './scenes/game-scene';
 
 /**
  *  Main game class.
@@ -20,16 +14,7 @@ class Game {
    */
   public ctx: CanvasRenderingContext2D;
 
-  /**
-   * Contains all game object instances.
-   * Either physical or virtual.
-   */
-  public instances: GameObject[] = [];
-
-  /**
-   * Contains all manager instances.
-   */
-  public managers: Manager[] = [new CollisionManager(this)];
+  public currentScene: Scene | null = new GameScene(this);
 
   constructor(public readonly canvas: HTMLCanvasElement) {
     const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
@@ -48,9 +33,12 @@ class Game {
    * Game logic is executed here.
    */
   private loop(): void {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.instances.forEach((instance: GameObject) => instance.update());
-    this.managers.forEach((manager: Manager) => manager.run());
+    if (!this.currentScene?.isInitialized) {
+      this.currentScene?.init();
+    }
+
+    this.currentScene?.loop();
+
     requestAnimationFrame(() => this.loop());
   }
 
@@ -60,29 +48,7 @@ class Game {
    *
    * Runs once.
    */
-  private init(): void {
-    const playerDimensions: Dimensions2D = new Dimensions2D(20, 100);
-    const playerCenter: number = this.canvas.height / 2 - playerDimensions.height / 2;
-
-    this.instances.push(
-      new Ball(this),
-      new Player(
-        this,
-        new PlayerControls('w', 's'),
-        new Position(20, playerCenter),
-        playerDimensions,
-      ),
-      new Player(
-        this,
-        new PlayerControls('ArrowUp', 'ArrowDown'),
-        new Position(760, playerCenter),
-        playerDimensions,
-      ),
-    );
-
-    this.instances.forEach((instance: GameObject) => instance.init());
-    this.managers.forEach((manager: Manager) => manager.init());
-  }
+  private init(): void {}
 
   /**
    * Entry point of the game.

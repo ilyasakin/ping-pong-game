@@ -3,16 +3,17 @@ import Game from './game';
 import Dimensions2D from './dimensions2d';
 import Position from './position';
 import Direction from './direction';
+import Scene from "./scene";
 
 class Ball extends Vector2D {
   private game: Game;
   public direction: Direction = new Direction(0);
 
-  constructor(game: Game) {
-    const centerX: number = game.canvas.width / 2;
-    const centerY: number = game.canvas.height / 2;
+  constructor(scene: Scene) {
+    const centerX: number = scene.game.canvas.width / 2;
+    const centerY: number = scene.game.canvas.height / 2;
     super(new Position(centerX, centerY), new Dimensions2D(20, 20));
-    this.game = game;
+    this.game = scene.game;
   }
 
   public init(): void {
