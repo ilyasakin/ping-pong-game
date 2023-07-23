@@ -49,6 +49,9 @@ class Button extends GameObject {
     } else {
       ctx.fillStyle = '#ffffff';
       ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#ffffff';
+      ctx.stroke();
       ctx.closePath();
       ctx.beginPath();
       ctx.fillStyle = '#000000';
