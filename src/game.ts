@@ -17,7 +17,7 @@ class Game {
 
   public mousePosition: Position = new Position(0, 0);
 
-  public currentScene: Scene | null = new MenuScene(this);
+  public currentScene: Scene | null = null;
 
   constructor(public readonly canvas: HTMLCanvasElement) {
     const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
@@ -45,6 +45,27 @@ class Game {
     requestAnimationFrame(() => this.loop());
   }
 
+  private changeScene(scene: Scene): void {
+    this.currentScene?.destroy();
+    this.currentScene = scene;
+
+    if (this.currentScene.doesSceneNeedsMousePosition) {
+      this.canvas.addEventListener('mousemove', this.mouseMoveHandler.bind(this));
+    } else {
+      this.canvas.removeEventListener('mousemove', this.mouseMoveHandler.bind(this));
+    }
+  }
+
+  private setMousePosition(event: MouseEvent): void {
+    const canvasRect: DOMRect = this.canvas.getBoundingClientRect();
+    this.mousePosition.x = event.clientX - canvasRect.x;
+    this.mousePosition.y = event.clientY - canvasRect.y;
+  }
+
+  private mouseMoveHandler(event: MouseEvent) {
+    this.setMousePosition(event);
+  }
+
   /**
    * Initializes the game.
    * Instances and managers are created here.
@@ -52,11 +73,7 @@ class Game {
    * Runs once.
    */
   private init(): void {
-    this.canvas.addEventListener('mousemove', (event: MouseEvent) => {
-      const canvasRect: DOMRect = this.canvas.getBoundingClientRect();
-      this.mousePosition.x = event.clientX - canvasRect.x;
-      this.mousePosition.y = event.clientY - canvasRect.y;
-    });
+    this.changeScene(new MenuScene(this));
   }
 
   /**

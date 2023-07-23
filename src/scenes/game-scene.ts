@@ -11,6 +11,7 @@ import CollisionManager from '../collision-manager';
 
 class GameScene extends Scene {
   public isInitialized: boolean = false;
+  public doesSceneNeedsMousePosition: boolean = false;
   public instances: GameObject[] = [];
   public managers: Manager[] = [];
 

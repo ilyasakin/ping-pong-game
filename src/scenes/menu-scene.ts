@@ -8,6 +8,7 @@ import Position from '../position';
 
 class MenuScene extends Scene {
   public isInitialized: boolean = false;
+  public doesSceneNeedsMousePosition: boolean = true;
   public instances: GameObject[] = [];
   public managers: Manager[] = [];
 

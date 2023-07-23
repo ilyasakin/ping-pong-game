@@ -3,6 +3,7 @@ import Manager from './manager';
 import Game from '../game';
 
 abstract class Scene {
+  public abstract doesSceneNeedsMousePosition: boolean;
   public abstract isInitialized: boolean;
   /**
    * Contains all game object instances.
