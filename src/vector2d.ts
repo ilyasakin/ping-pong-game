@@ -1,5 +1,5 @@
 import Dimensions2D from './dimensions2d';
-import GameObject from './game-object';
+import GameObject from './abstracts/game-object';
 import Position from './position';
 
 /**

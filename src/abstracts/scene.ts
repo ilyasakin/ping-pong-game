@@ -1,6 +1,6 @@
 import GameObject from './game-object';
 import Manager from './manager';
-import Game from './game';
+import Game from '../game';
 
 abstract class Scene {
   public abstract isInitialized: boolean;

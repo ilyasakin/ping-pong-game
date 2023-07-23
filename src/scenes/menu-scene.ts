@@ -1,6 +1,6 @@
-import Scene from '../scene';
-import GameObject from '../game-object';
-import Manager from '../manager';
+import Scene from '../abstracts/scene';
+import GameObject from '../abstracts/game-object';
+import Manager from '../abstracts/manager';
 import Game from '../game';
 
 class MenuScene extends Scene {

@@ -1,9 +1,9 @@
 import Ball from './ball';
 import Dimensions2D from './dimensions2d';
-import Manager from './manager';
+import Manager from './abstracts/manager';
 import Player from './player';
 import Position from './position';
-import Scene from './scene';
+import Scene from './abstracts/scene';
 
 class CollisionManager extends Manager {
   private ball: Ball | null = null;

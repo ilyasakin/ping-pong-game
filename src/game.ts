@@ -1,4 +1,4 @@
-import Scene from './scene';
+import Scene from './abstracts/scene';
 import GameScene from './scenes/game-scene';
 
 /**

@@ -3,7 +3,7 @@ import Game from './game';
 import Dimensions2D from './dimensions2d';
 import Position from './position';
 import Direction from './direction';
-import Scene from "./scene";
+import Scene from "./abstracts/scene";
 
 class Ball extends Vector2D {
   private game: Game;
