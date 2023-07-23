@@ -1,5 +1,6 @@
 import Scene from './abstracts/scene';
-import GameScene from './scenes/game-scene';
+import MenuScene from './scenes/menu-scene';
+import Position from './position';
 
 /**
  *  Main game class.
@@ -14,7 +15,9 @@ class Game {
    */
   public ctx: CanvasRenderingContext2D;
 
-  public currentScene: Scene | null = new GameScene(this);
+  public mousePosition: Position = new Position(0, 0);
+
+  public currentScene: Scene | null = new MenuScene(this);
 
   constructor(public readonly canvas: HTMLCanvasElement) {
     const ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
@@ -48,7 +51,13 @@ class Game {
    *
    * Runs once.
    */
-  private init(): void {}
+  private init(): void {
+    this.canvas.addEventListener('mousemove', (event: MouseEvent) => {
+      const canvasRect: DOMRect = this.canvas.getBoundingClientRect();
+      this.mousePosition.x = event.clientX - canvasRect.x;
+      this.mousePosition.y = event.clientY - canvasRect.y;
+    });
+  }
 
   /**
    * Entry point of the game.
