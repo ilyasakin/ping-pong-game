@@ -1,15 +1,15 @@
-import Ball from './ball';
-import Dimensions2D from './dimensions2d';
-import Manager from './abstracts/manager';
-import Player from './player';
-import Position from './position';
-import Scene from './abstracts/scene';
+import Ball from '../ball';
+import Dimensions2D from '../dimensions2d';
+import Manager from '../abstracts/manager';
+import Player from '../player';
+import Position from '../position';
+import Scene from '../abstracts/scene';
 
 class CollisionManager extends Manager {
   private ball: Ball | null = null;
 
   constructor(public readonly scene: Scene) {
-    super();
+    super(scene);
   }
 
   init() {
@@ -103,6 +103,8 @@ class CollisionManager extends Manager {
       }
     });
   }
+
+  public destroy() {}
 }
 
 export default CollisionManager;

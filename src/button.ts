@@ -4,26 +4,18 @@ import Dimensions2D from './dimensions2d';
 import Game from './game';
 
 class Button extends GameObject {
+  public showCursorWhenMouseIsOver: boolean = true;
+
   constructor(
     private readonly game: Game,
-    private readonly position: Position,
-    private readonly dimensions: Dimensions2D,
+    public readonly position: Position,
+    public readonly dimensions: Dimensions2D,
     public readonly text: string,
   ) {
     super();
   }
 
   public init() {}
-
-  public get isHovered(): boolean {
-    const { x, y } = this.game.mousePosition;
-    const { width, height } = this.dimensions;
-
-    const posX: number = this.position.x - width / 2;
-    const posY: number = this.position.y - height / 2;
-
-    return x > posX && x < posX + width && y > posY && y < posY + height;
-  }
 
   public draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
@@ -35,7 +27,7 @@ class Button extends GameObject {
     ctx.textBaseline = 'middle';
     ctx.rect(x, y, this.dimensions.width, this.dimensions.height);
 
-    if (!this.isHovered) {
+    if (!this.isMouseOver) {
       ctx.fillStyle = '#000000';
       ctx.fill();
       ctx.lineWidth = 2;
@@ -65,6 +57,8 @@ class Button extends GameObject {
   public update() {
     this.draw(this.game.ctx);
   }
+
+  public destroy() {}
 }
 
 export default Button;

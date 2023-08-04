@@ -7,7 +7,7 @@ import Ball from '../ball';
 import Player from '../player';
 import PlayerControls from '../player-controls';
 import Position from '../position';
-import CollisionManager from '../collision-manager';
+import CollisionManager from '../managers/collision-manager';
 
 class GameScene extends Scene {
   public isInitialized: boolean = false;
@@ -53,7 +53,10 @@ class GameScene extends Scene {
     this.managers.forEach((manager: Manager) => manager.run());
   }
 
-  public destroy(): void {}
+  public destroy(): void {
+    this.instances.forEach((instance: GameObject) => instance.destroy());
+    this.managers.forEach((manager: Manager) => manager.destroy());
+  }
 }
 
 export default GameScene;

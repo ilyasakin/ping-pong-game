@@ -5,6 +5,8 @@ import Game from '../game';
 import Button from '../button';
 import Dimensions2D from '../dimensions2d';
 import Position from '../position';
+import EventManager from '../managers/event-manager';
+import GameScene from './game-scene';
 
 class MenuScene extends Scene {
   public isInitialized: boolean = false;
@@ -17,14 +19,21 @@ class MenuScene extends Scene {
   }
 
   public init(): void {
-    this.instances.push(
-      new Button(
-        this.game,
-        new Position(this.game.canvas.width / 2, this.game.canvas.height / 2),
-        new Dimensions2D(180, 60),
-        'Start',
-      ),
+    const startButtonInstance: Button = new Button(
+      this.game,
+      new Position(this.game.canvas.width / 2, this.game.canvas.height / 2),
+      new Dimensions2D(180, 60),
+      'Start',
     );
+
+    startButtonInstance.onClick = () => {
+      const gameSceneInstance: GameScene = new GameScene(this.game);
+      this.game.changeScene(gameSceneInstance);
+    };
+
+    this.instances.push(startButtonInstance);
+
+    this.managers.push(new EventManager(this));
 
     this.instances.forEach((instance: GameObject) => instance.init());
     this.managers.forEach((manager: Manager) => manager.init());
@@ -38,7 +47,10 @@ class MenuScene extends Scene {
     this.managers.forEach((manager: Manager) => manager.run());
   }
 
-  public destroy(): void {}
+  public destroy(): void {
+    this.instances.forEach((instance: GameObject) => instance.destroy());
+    this.managers.forEach((manager: Manager) => manager.destroy());
+  }
 }
 
 export default MenuScene;

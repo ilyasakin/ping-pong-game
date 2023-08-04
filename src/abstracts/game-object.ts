@@ -1,4 +1,16 @@
+import Dimensions2D from '../dimensions2d';
+import Position from '../position';
+import { v4 as uuid } from 'uuid';
+
 abstract class GameObject {
+  public readonly id: string = uuid();
+
+  public isMouseOver: boolean = false;
+  public showCursorWhenMouseIsOver: boolean = false;
+  public onClick: () => void = () => {};
+  public abstract position: Position;
+  public abstract dimensions: Dimensions2D;
+
   public init(): void {}
 
   /**
@@ -9,6 +21,8 @@ abstract class GameObject {
    * it is not supposed to do so.
    */
   public abstract update(): void;
+
+  public abstract destroy(): void;
 }
 
 export default GameObject;

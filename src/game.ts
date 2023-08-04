@@ -45,25 +45,9 @@ class Game {
     requestAnimationFrame(() => this.loop());
   }
 
-  private changeScene(scene: Scene): void {
+  public changeScene(scene: Scene): void {
     this.currentScene?.destroy();
     this.currentScene = scene;
-
-    if (this.currentScene.doesSceneNeedsMousePosition) {
-      this.canvas.addEventListener('mousemove', this.mouseMoveHandler.bind(this));
-    } else {
-      this.canvas.removeEventListener('mousemove', this.mouseMoveHandler.bind(this));
-    }
-  }
-
-  private setMousePosition(event: MouseEvent): void {
-    const canvasRect: DOMRect = this.canvas.getBoundingClientRect();
-    this.mousePosition.x = event.clientX - canvasRect.x;
-    this.mousePosition.y = event.clientY - canvasRect.y;
-  }
-
-  private mouseMoveHandler(event: MouseEvent) {
-    this.setMousePosition(event);
   }
 
   /**
