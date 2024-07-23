@@ -8,6 +8,7 @@ import Player from '../player';
 import PlayerControls from '../player-controls';
 import Position from '../position';
 import CollisionManager from '../managers/collision-manager';
+import GameManager from '../managers/game-manager';
 
 class GameScene extends Scene {
   public isInitialized: boolean = false;
@@ -20,7 +21,7 @@ class GameScene extends Scene {
   }
 
   public init(): void {
-    this.managers.push(new CollisionManager(this));
+    this.managers.push(new CollisionManager(this), new GameManager(this));
 
     const playerDimensions: Dimensions2D = new Dimensions2D(20, 100);
     const playerCenter: number = this.game.canvas.height / 2 - playerDimensions.height / 2;
