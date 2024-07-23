@@ -12,7 +12,6 @@ import GameManager from '../managers/game-manager';
 
 class GameScene extends Scene {
   public isInitialized: boolean = false;
-  public doesSceneNeedsMousePosition: boolean = false;
   public instances: GameObject[] = [];
   public managers: Manager[] = [];
 

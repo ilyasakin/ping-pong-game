@@ -11,8 +11,6 @@ class Direction {
   }
 
   public set value(value: number) {
-    console.log({ value });
-
     if (value % 1 !== 0) {
       throw new Error('Direction must be an integer');
     }

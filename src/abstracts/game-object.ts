@@ -6,8 +6,6 @@ abstract class GameObject {
   public readonly id: string = uuid();
 
   public isMouseOver: boolean = false;
-  public showCursorWhenMouseIsOver: boolean = false;
-  public onClick: () => void = () => {};
   public abstract position: Position;
   public abstract dimensions: Dimensions2D;
 

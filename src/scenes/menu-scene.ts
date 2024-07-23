@@ -5,12 +5,10 @@ import Game from '../game';
 import Button from '../button';
 import Dimensions2D from '../dimensions2d';
 import Position from '../position';
-import EventManager from '../managers/event-manager';
 import GameScene from './game-scene';
 
 class MenuScene extends Scene {
   public isInitialized: boolean = false;
-  public doesSceneNeedsMousePosition: boolean = true;
   public instances: GameObject[] = [];
   public managers: Manager[] = [];
 
@@ -32,8 +30,6 @@ class MenuScene extends Scene {
     };
 
     this.instances.push(startButtonInstance);
-
-    this.managers.push(new EventManager(this));
 
     this.instances.forEach((instance: GameObject) => instance.init());
     this.managers.forEach((manager: Manager) => manager.init());

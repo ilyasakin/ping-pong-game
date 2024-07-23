@@ -2,10 +2,9 @@ import GameObject from './abstracts/game-object';
 import Position from './position';
 import Dimensions2D from './dimensions2d';
 import Game from './game';
+import Clickable from './abstracts/clickable';
 
-class Button extends GameObject {
-  public showCursorWhenMouseIsOver: boolean = true;
-
+class Button extends GameObject implements Clickable {
   constructor(
     private readonly game: Game,
     public readonly position: Position,
@@ -15,7 +14,35 @@ class Button extends GameObject {
     super();
   }
 
-  public init() {}
+  public onClick() {}
+
+  public _onClick() {
+    if (this.isMouseOver) {
+      this.onClick();
+    }
+  }
+
+  private onMouseMove(e: MouseEvent) {
+    const rect: DOMRect = this.game.canvas.getBoundingClientRect();
+    const mouseX: number = e.clientX - rect.left;
+    const mouseY: number = e.clientY - rect.top;
+
+    if (
+      mouseX > this.position.x - this.dimensions.width / 2 &&
+      mouseX < this.position.x + this.dimensions.width / 2 &&
+      mouseY > this.position.y - this.dimensions.height / 2 &&
+      mouseY < this.position.y + this.dimensions.height / 2
+    ) {
+      this.isMouseOver = true;
+    } else {
+      this.isMouseOver = false;
+    }
+  }
+
+  public init() {
+    this.game.canvas.onmousemove = this.onMouseMove.bind(this);
+    this.game.canvas.onclick = this._onClick.bind(this);
+  }
 
   public draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
@@ -58,7 +85,11 @@ class Button extends GameObject {
     this.draw(this.game.ctx);
   }
 
-  public destroy() {}
+  public destroy() {
+    this.game.canvas.onmousemove = null;
+    this.game.canvas.onclick = null;
+    this.game.canvas.style.cursor = 'default';
+  }
 }
 
 export default Button;
