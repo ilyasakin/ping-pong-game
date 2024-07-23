@@ -1,7 +1,11 @@
 import Manager from '../abstracts/manager';
 import Scene from '../abstracts/scene';
 import Ball from '../ball';
+import Position from '../position';
+import Dimensions2D from '../dimensions2d';
+import Button from '../button';
 import UInt from '../primitives/uint';
+import MenuScene from '../scenes/menu-scene';
 
 class GameManager extends Manager {
   public static readonly WINNING_SCORE: number = 3;
@@ -50,6 +54,27 @@ class GameManager extends Manager {
     );
   }
 
+  private drawBackToMenuButton(): void {
+    if (this.scene.instances.some((instance) => instance instanceof Button)) {
+      return;
+    }
+
+    const backToMenuButtonInstance: Button = new Button(
+      this.scene.game,
+      new Position(this.scene.game.canvas.width / 2, this.scene.game.canvas.height / 2 + 120),
+      new Dimensions2D(180, 60),
+      'Back to menu',
+    );
+
+    backToMenuButtonInstance.onClick = () => {
+      this.scene.game.changeScene(new MenuScene(this.scene.game));
+    };
+
+    backToMenuButtonInstance.init();
+
+    this.scene.instances.push(backToMenuButtonInstance);
+  }
+
   private checkEndGame(): void {
     this.player1Won = this.player1Score.value >= GameManager.WINNING_SCORE;
     this.player2Won = this.player2Score.value >= GameManager.WINNING_SCORE;
@@ -74,12 +99,18 @@ class GameManager extends Manager {
   }
 
   public run(): void {
-    this.drawScore();
+    if (this.playerWon) {
+      this.drawEndGameMessage(this.playerWon);
+      this.drawScore();
+      return;
+    }
+
     this.checkEndGame();
 
     if (this.playerWon) {
       this.removeGameObjects();
       this.drawEndGameMessage(this.playerWon);
+      this.drawBackToMenuButton();
       return;
     }
 
