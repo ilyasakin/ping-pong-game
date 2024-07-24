@@ -16,6 +16,26 @@ class MenuScene extends Scene {
     super(game);
   }
 
+  private drawTitle(): void {
+    this.game.ctx.font = '50px Arial';
+    this.game.ctx.fillStyle = 'white';
+
+    this.game.ctx.textAlign = 'center';
+    this.game.ctx.fillText('Ping Pong', this.game.canvas.width / 2, this.game.canvas.height / 2 - 150);
+  }
+
+  private drawGameRules(): void {
+    this.game.ctx.font = '20px Arial';
+    this.game.ctx.fillStyle = 'white';
+
+    this.game.ctx.textAlign = 'center';
+    this.game.ctx.fillText(
+      'Use WASD and the arrow keys to move the players.',
+      this.game.canvas.width / 2,
+      this.game.canvas.height / 2 + 100,
+    );
+  }
+
   public init(): void {
     const startButtonInstance: Button = new Button(
       this.game,
@@ -39,6 +59,8 @@ class MenuScene extends Scene {
 
   public loop(): void {
     this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
+    this.drawTitle();
+    this.drawGameRules();
     this.instances.forEach((instance: GameObject) => instance.update());
     this.managers.forEach((manager: Manager) => manager.run());
   }
