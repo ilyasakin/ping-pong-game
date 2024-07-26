@@ -29,7 +29,7 @@ class GameManager extends Manager {
       this.scene.game.ctx.fillText(
         `${this.player1Score.value} - ${this.player2Score.value}`,
         this.scene.game.canvas.width / 2,
-        this.scene.game.canvas.height / 2 + 50,
+        this.scene.game.canvas.height / 2,
       );
     } else {
       this.scene.game.ctx.fillText(
@@ -50,7 +50,7 @@ class GameManager extends Manager {
     this.scene.game.ctx.fillText(
       `${playerWon} won!`,
       this.scene.game.canvas.width / 2,
-      this.scene.game.canvas.height / 2,
+      this.scene.game.canvas.height / 2 - 100,
     );
   }
 
@@ -105,6 +105,7 @@ class GameManager extends Manager {
       return;
     }
 
+    this.drawScore();
     this.checkEndGame();
 
     if (this.playerWon) {
